@@ -1,0 +1,250 @@
+/* 基础重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;  /* 增加最大宽度 */
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.controls {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #555;
+}
+
+/* 指板容器 */
+.fretboards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* 单个指板样式 */
+.fretboard {
+    background: white;
+    padding: 30px 20px;  /* 增加上下padding给数字留空间 */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow-x: auto;    /* 如果指板太长可以横向滚动 */
+}
+
+.fretboard-title {
+    text-align: center;
+    margin-bottom: 25px;  /* 增加间距 */
+    font-size: 18px;
+    color: #333;
+}
+
+/* 指板网格 */
+.fretboard-grid {
+    position: relative;
+    background: #f8f8f8;
+    border: 2px solid #333;
+    border-radius: 4px;
+    padding: 15px 0;     /* 调整padding */
+    min-height: 200px;
+}
+
+/* 琴弦样式 */
+.string {
+    display: flex;
+    height: 20px;
+    margin: 12px 0;
+    position: relative;
+}
+
+/* 琴弦线 */
+.string::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1px;
+    background: #000;
+    z-index: 1;
+}
+
+/* 品格样式 */
+.fret {
+    flex: 1;
+    position: relative;
+    border-right: 2px solid #000;
+    min-height: 100%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* 第一个品（琴枕） */
+.fret:first-child {
+    border-left: 8px solid #333;
+}
+
+/* 品格悬停效果 */
+.fret:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* 高亮状态的品格 - 圆点样式 */
+.fret.active {
+    background: transparent;
+}
+
+/* 圆点 - 修复定位 */
+.fret.active::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25px;        /* 增大圆点 */
+    height: 25px;
+    background: #323131;
+    border-radius: 50%;
+    border: 2px solid #333;
+    z-index: 10;
+}
+
+/* 音符名称样式 */
+.note-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 15;
+    pointer-events: none; /* 防止干扰点击 */
+}
+
+/* 品格数字标记 - 修复定位 */
+.fret-numbers {
+    display: flex;
+    position: absolute;
+    top: -25px;
+    left: 0;
+    right: 0;
+    height: 20px;
+}
+
+.fret-number {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    font-weight: bold;
+    position: relative;
+}
+
+/* 调整第一个品数字的位置 */
+.fret-number:first-child {
+    margin-left: -4px;  /* 琴枕位置的微调 */
+}
+
+/* 指板操作按钮 */
+.fretboard-actions {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.fretboard-actions button {
+    background: #666;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+.fretboard-actions button:hover {
+    background: #888;
+}
+
+/* 指板头部布局 */
+.fretboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.fretboard-title {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.fretboard-title:hover {
+    background-color: #f0f0f0;
+}
+
+/* 顶部操作按钮 */
+.fretboard-actions-top {
+    display: flex;
+    gap: 5px;
+}
+
+.fretboard-actions-top button {
+    padding: 5px 10px;
+    margin: 0;
+    background: #666;
+    font-size: 12px;
+}
+
+.fretboard-actions-top button:hover {
+    background: #888;
+    transform: scale(1.1);
+}
+
+/* 底部操作按钮 */
+.fretboard-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.fretboard-actions button {
+    background: #666;
+    font-size: 12px;
+    padding: 8px 15px;
+}
+
+.fretboard-actions button:hover {
+    background: #888;
+}
